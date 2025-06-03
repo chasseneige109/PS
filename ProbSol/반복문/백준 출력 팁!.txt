@@ -1,8 +1,30 @@
-���������� for�� ������ Ǯ�� ���� �����ؾ� �� ���� �ִ�. 
-����� ����� ������ ���� ���� �Է¹ްų� ����� �� �ð��ʰ��� �� �� �ִٴ� ���̴�.
-C++�� ����ϰ� �ְ� cin/cout�� ����ϰ��� �Ѵٸ�, 
-cin.tie(NULL)�� sync_with_stdio(false)�� �� �� ������ �ְ�,
-endl ��� ���๮��(\n)�� ����. 
+본격적으로 for문 문제를 풀기 전에 주의해야 할 점이 있다. 
+입출력 방식이 느리면 여러 줄을 입력받거나 출력할 때 시간초과가 날 수 있다는 점이다.
+C++을 사용하고 있고 cin/cout을 사용하고자 한다면, 
+cin.tie(NULL)과 sync_with_stdio(false)를 둘 다 적용해 주고,
+endl 대신 개행문자(\n)를 쓰자. 
 
-��, �̷��� �ϸ� �� �̻� scanf/printf/puts/getchar/putchar �� 
-C�� ����� ����� ����ϸ� �� �ȴ�.
+단, 이렇게 하면 더 이상 scanf/printf/puts/getchar/putchar 등 
+C의 입출력 방식을 사용하면 안 된다.
+mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+1. ios::sync_with_stdio(false);
+C++의 cin/cout과 C의 scanf/printf의 입출력 버퍼를 분리시킴
+
+즉, 더 이상 C 표준 입출력과 버퍼를 공유하지 않기 때문에 속도가 빨라짐
+
+⚠️ 단점: 이제 cin과 scanf를 같이 쓰면 버그 발생 가능
+
+2. cin.tie(NULL);
+기본적으로 cin은 cout과 묶여 있어서 cin 전에 cout이 자동 flush됨
+
+이 묶음을 풀면, cin에서 불필요한 flush를 막을 수 있어 → 속도 향상
+
+쉽게 말하면: 입력할 때마다 출력 버퍼 비우는 거 방지 → 더 빠름
+
+✅ 그리고 endl은?
+
+cout << "hello" << endl;
+endl은 개행 + 출력 버퍼 flush 기능이 있음 → 느림
+그래서 속도 중요할 때는 그냥 \n을 쓰는 게 좋음:
+
+cout << "hello\n";  // flush 안 함 → 빠름
